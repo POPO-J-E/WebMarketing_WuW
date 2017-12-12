@@ -46,5 +46,5 @@ RUN buildRequirements="libpng12-dev libjpeg-dev libfreetype6-dev" \
 RUN echo 'alias sf="php app/console"' >> ~/.bashrc
 RUN echo 'alias sf3="php bin/console"' >> ~/.bashrc
 
-WORKDIR /var/www/trocmoto
+WORKDIR /var/www/watch-u-want
 #WORKDIR /var/www/${SYMFONY_APP_NAME}
