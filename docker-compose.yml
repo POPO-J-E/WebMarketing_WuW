@@ -7,8 +7,8 @@ services:
             args:
                 TIMEZONE: ${TIMEZONE}
         volumes:
-            - ${SYMFONY_APP_PATH}:/var/www/${SYMFONY_APP_NAME}
-            - ./logs/symfony:/var/www/${SYMFONY_APP_NAME}/app/logs
+            - ./:/var/www/watch-u-want
+            - ./logs/symfony:/var/www/watch-u-want/app/logs
         environment:
             SYMFONY_APP_NAME: ${SYMFONY_APP_NAME}
 
