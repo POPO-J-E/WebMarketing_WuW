@@ -2,56 +2,56 @@ version: '2'
 
 services:
     web:
-      build: ./docker/php
-      ports:
-        - "8080:80"
-      links:
-        - mariaDB
-      environment:
-        SYMFONY_ENV: dev
+        build: ./docker/php
+        ports:
+            - "8080:80"
+        links:
+            - mariaDB
+        environment:
+            SYMFONY_ENV: dev
         # see https://registry.hub.docker.com/u/jderusse/dns-gen/
         #- DOMAIN_NAME=thelia.docker
-      command: /usr/sbin/apache2ctl -D FOREGROUND
-      volumes:
-        - .:/var/www/html
+        command: /usr/sbin/apache2ctl -D FOREGROUND
+        volumes:
+            - .:/var/www/html
     php:
-      build:
-        context: ./docker/php7-fpm
-        args:
-            TIMEZONE: ${TIMEZONE}
-      volumes:
-        - ${SYMFONY_APP_PATH}:/var/www/${SYMFONY_APP_NAME}
-        - ./logs/symfony:/var/www/${SYMFONY_APP_NAME}/app/logs
-      environment:
-        SYMFONY_APP_NAME: ${SYMFONY_APP_NAME}
+        build:
+            context: ./docker/php7-fpm
+            args:
+                TIMEZONE: ${TIMEZONE}
+        volumes:
+            - ${SYMFONY_APP_PATH}:/var/www/${SYMFONY_APP_NAME}
+            - ./logs/symfony:/var/www/${SYMFONY_APP_NAME}/app/logs
+        environment:
+            SYMFONY_APP_NAME: ${SYMFONY_APP_NAME}
 
     nginx:
-      build:
-        context: ./docker/nginx
-      ports:
-        - 80:80
-      volumes_from:
-        - php
-      volumes:
-        - ./logs/nginx/:/var/log/nginx
-      environment:
-        SYMFONY_APP_DOMAIN: ${SYMFONY_APP_DOMAIN}
-        SYMFONY_APP_NAME: ${SYMFONY_APP_NAME}
+        build:
+            context: ./docker/nginx
+        ports:
+            - 80:80
+        volumes_from:
+            - php
+        volumes:
+            - ./logs/nginx/:/var/log/nginx
+        environment:
+            SYMFONY_APP_DOMAIN: ${SYMFONY_APP_DOMAIN}
+            SYMFONY_APP_NAME: ${SYMFONY_APP_NAME}
 
     phpmyadmin:
-      image: corbinu/docker-phpmyadmin
-      ports:
-        - "8081:80"
-      environment:
-        MYSQL_ROOT_UNSERNAME: root
-        MYSQL_ROOT_PASSWORD: toor
-        MYSQL_PORT_3306_TCP_ADDR: maria
-        MYSQL_PORT_3306_TCP_PORT: 3306
-      links:
-        - mariaDB:maria
+        image: corbinu/docker-phpmyadmin
+        ports:
+            - "8081:80"
+        environment:
+            MYSQL_ROOT_UNSERNAME: root
+            MYSQL_ROOT_PASSWORD: toor
+            MYSQL_PORT_3306_TCP_ADDR: maria
+            MYSQL_PORT_3306_TCP_PORT: 3306
+        links:
+            - mariaDB:maria
 
     mariaDB:
-      image: mariadb
-      environment:
-        MYSQL_DATABASE: thelia
-        MYSQL_ROOT_PASSWORD: toor
+        image: mariadb
+        environment:
+            MYSQL_DATABASE: thelia
+            MYSQL_ROOT_PASSWORD: toor
