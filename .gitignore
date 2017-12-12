@@ -66,6 +66,5 @@ composer.lock
 #/web/.htpasswd
 /logs
 /.data
-.env
 !.env.dist
 /docker/.env.dist
