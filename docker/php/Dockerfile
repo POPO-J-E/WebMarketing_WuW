@@ -10,9 +10,9 @@ RUN apt-get update && apt-get install -y \
  git \
  zip \
  libzip-dev \
-    && docker-php-ext-configure intl pdo_mysql openssl mbstring zip calendar \
+    && docker-php-ext-install intl pdo_mysql openssl mbstring zip calendar \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-configure gd \
+    && docker-php-ext-install gd \
     && docker-php-pecl-install xdebug-2.3.3
 
 # Setup and install composer
