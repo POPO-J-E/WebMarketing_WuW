@@ -1,0 +1,64 @@
+<div class="general-block-decorator">
+    <div class="row">
+        <div class="col-md-12 title title-without-tabs">
+            {intl l='Edit your social media datas.' d='opengraph.bo.default'}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-container">
+                {form name="open.graph.configuration.form"}
+                {if $form_error}<div class="alert alert-danger">{$form_error_message}</div>{/if}
+                <form method="POST" action="{url path="/admin/module/OpenGraph/save"}" {form_enctype form=$form} class="clearfix">
+
+                {form_hidden_fields form=$form}
+
+                {form_field form=$form field='company_name'}
+                <div class="form-group {if $error}has-error{/if}">
+                    <label for="{$label_attr.for}" class="control-label">{$label} : </label>
+                    <input type="text" id="{$label_attr.for}" name="{$name}" class="form-control" value="{config key='opengraph_company_name'}" title="{$label}">
+                </div>
+                {/form_field}
+
+                {$twitterLink="<a href='https://twitter.com/theliaecommerce' target='_blank'>@theliaecommerce</a>"}
+
+                {form_field form=$form field='twitter_company_name'}
+                <div class="form-group {if $error}has-error{/if}">
+                    <label for="{$label_attr.for}" class="control-label">{$label} : </label>
+                    <input type="text" id="{$label_attr.for}" name="{$name}" class="form-control" value="{config key='opengraph_twitter_company_name'}" title="{$label}">
+                    <span class="help-block">{intl l='Must be a valid twitter username ( ex : %link )' link=$twitterLink d='opengraph.bo.default'}</span>
+                </div>
+                {/form_field}
+
+                {form_field form=$form field='twitter_creator_name'}
+                <div class="form-group {if $error}has-error{/if}">
+                    <label for="{$label_attr.for}" class="control-label">{$label} : </label>
+                    <input type="text" id="{$label_attr.for}" name="{$name}" class="form-control" value="{config key='opengraph_twitter_creator_name'}" title="{$label}">
+                    <span class="help-block">{intl l='Must be a valid twitter username ( ex : %link )' link=$twitterLink d='opengraph.bo.default'}</span>
+                </div>
+                {/form_field}
+
+                {form_field form=$form field="enable_sharing_buttons"}
+                <div class="form-group">
+                    <label class="control-label" for="{$label_attr.for}">
+                        <input type="checkbox" name="{$name}" id="{$label_attr.for}" {if $value}checked{/if} />
+                        {$label}
+                        {form_error form=$form field="enable_sharing_buttons"}
+                        <br />
+                        <span class="error">{$message}</span>
+                        {/form_error}
+                    </label>
+                    {if ! empty($label_attr.help)}
+                    <span class="help-block">{$label_attr.help}</span>
+                    {/if}
+                </div>
+                {/form_field}
+
+                <button type="submit" name="opengraph_save" value="save" class="form-submit-button btn btn-sm btn-default" title="{intl d='opengraph.bo.default' l='Save'}">{intl d='opengraph.bo.default' l='Save'}</button>
+                </form>
+                {/form}
+            </div>
+        </div>
+    </div>
+</div>
